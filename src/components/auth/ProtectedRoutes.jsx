@@ -10,10 +10,11 @@ const ProtectedRoutes = () => {
   const userAuthenticated = useSelector(
     (state) => state.authenticated.userAuthenticated
   );
+  const user = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!userAuthenticated) {
+    if (!userAuthenticated && !user.token) {
       navigate("/");
     }
   }, [userAuthenticated]);
