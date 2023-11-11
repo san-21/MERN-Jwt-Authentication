@@ -1,4 +1,4 @@
-const urls = ["http://localhost:3000"];
+const urls = ["https://mernjwt-ui.onrender.com"];
 
 export const allowedUrl = {
   origin: (origin, callback) => {
