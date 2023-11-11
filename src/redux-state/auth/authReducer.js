@@ -20,9 +20,7 @@ const authSlice = createSlice({
       state.userId = userData._id;
       state.fullname = userData.fullname;
     },
-    // setRefreshToken: (state, action) => {
-    //   state.refreshToken = action.payload.refreshToken;
-    // },
+
     logout: (state) => {
       state.token = null;
       state.userId = null;

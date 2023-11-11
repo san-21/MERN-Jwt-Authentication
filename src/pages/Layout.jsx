@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@emotion/react";
 
 import SignUp from "../components/auth/SignUp";
@@ -11,6 +11,7 @@ import { Outlet } from "react-router-dom";
 import { logout } from "../redux-state/auth/authReducer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { instance } from "../services/axiosClient";
+import { setUserUnAuthenticated } from "../redux-state/auth/auththenticateReducer";
 const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,30 +19,31 @@ const Layout = () => {
 
   const isUrlDashboard = pathname === "/dashboard";
   const isUrlProfile = pathname === "/profile";
+
   // const isUrlHome = pathname === "/";
   console.log(pathname);
   const theme = useTheme();
   const user = useSelector((state) => state.auth);
+  const userAuthenticated = useSelector(
+    (state) => state.authenticated.userAuthenticated
+  );
   const [signoutLoading, setSignoutLoading] = useState(false);
 
   const dispatch = useDispatch();
   const handleSignout = async () => {
     setSignoutLoading(true);
-    // setSigningoutError(false);
+
     try {
       const result = await instance.post("/auth/logout");
       dispatch(logout());
+      dispatch(setUserUnAuthenticated());
       console.log(result);
 
-      // setSigningoutSuccess(true);
       setSignoutLoading(false);
-      // setSigningoutError(false);
-      navigate("/");
+
+      navigate("/", { replace: true });
     } catch (error) {
-      // setSigningoutSuccess(false);
       setSignoutLoading(false);
-      // setSigningoutError(true);
-      // console.log(error.response?.data.message);
     }
   };
   const handleLoginOpen = () => {
@@ -71,7 +73,7 @@ const Layout = () => {
         >
           <Button onClick={() => navigate("/")}>MERN-JWT</Button>
         </Box>
-        {user?.token && !isUrlProfile && (
+        {userAuthenticated && !isUrlProfile && (
           <Button
             onClick={() => navigate("/profile")}
             sx={{
@@ -82,7 +84,7 @@ const Layout = () => {
             Profile
           </Button>
         )}
-        {user?.token && !isUrlDashboard && (
+        {userAuthenticated && !isUrlDashboard && (
           <Button
             onClick={() => navigate("/dashboard")}
             sx={{
@@ -93,7 +95,7 @@ const Layout = () => {
             dashboard
           </Button>
         )}
-        {!user?.token && (
+        {!userAuthenticated && (
           <Button
             onClick={handleLoginOpen}
             sx={{
@@ -106,7 +108,7 @@ const Layout = () => {
         )}
 
         <Button
-          onClick={!user.token ? handleSignupOpen : handleSignout}
+          onClick={!userAuthenticated ? handleSignupOpen : handleSignout}
           variant="contained"
           sx={{
             backgroundColor: `${theme.palette.primary[500]}`,
@@ -119,8 +121,8 @@ const Layout = () => {
             fontSize: "13px",
           }}
         >
-          {!user?.token && !signoutLoading && "Join Now"}
-          {user.token && !signoutLoading && "Sign Out"}
+          {!userAuthenticated && !signoutLoading && "Join Now"}
+          {userAuthenticated && !signoutLoading && "Sign Out"}
           {signoutLoading && (
             <CircularProgress
               size={30}
@@ -139,7 +141,7 @@ const Layout = () => {
             color: `${theme.palette.text[400]}`,
           }}
         >
-          {user && user.fullname}
+          {userAuthenticated && user.fullname}
         </span>
       </Box>
       <Outlet />

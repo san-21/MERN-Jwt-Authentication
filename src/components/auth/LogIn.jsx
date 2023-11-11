@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 
 import { correctEmail } from "../../validate/AuthValidation";
 import { instance } from "../../services/axiosClient";
+import { setUserAuthenticated } from "../../redux-state/auth/auththenticateReducer";
 const LogIn = () => {
   const open = useSelector((state) => state.authModal.loginOpen);
 
@@ -86,23 +87,17 @@ const LogIn = () => {
       }
       if (email.length !== 0 && password.length > 7) {
         try {
-          const response = await instance.post(
-            "/auth/login",
-            {
-              email,
-              password,
-              rememberMe,
-            }
-            // {
-            //   headers: { "Content-Type": "application/json" },
-            //   withCredentials: true,
-            // }
-          );
+          const response = await instance.post("/auth/login", {
+            email,
+            password,
+            rememberMe,
+          });
 
           setIsLoading(false);
           const { token, message } = response.data;
 
           console.log(message, token);
+          dispatch(setUserAuthenticated());
           dispatch(setLoginClose());
           navigate("/dashboard");
           dispatch(setToken({ token: token }));

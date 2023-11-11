@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { logout, setToken } from "../redux-state/auth/authReducer";
 export const instance = axios.create({
+  // baseURL: "https://mernjwt-api.onrender.com",
   baseURL: "http://localhost:4000",
   headers: {
     "Content-Type": "application/json",

@@ -1,14 +1,23 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoginOpen } from "../../redux-state/auth/authModal";
 
+import { logout } from "../../redux-state/auth/authReducer";
 const ProtectedRoutes = () => {
-  const user = useSelector((state) => state.auth);
+  const userAuthenticated = useSelector(
+    (state) => state.authenticated.userAuthenticated
+  );
   const navigate = useNavigate();
-  if (!user.token) {
-    navigate("/");
-  }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!userAuthenticated) {
+      navigate("/");
+    }
+  }, [userAuthenticated, navigate]);
+
   return (
     <Box>
       <Outlet />

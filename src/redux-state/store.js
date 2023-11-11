@@ -16,15 +16,18 @@ import {
 import authReducer from "./auth/authReducer";
 import authModalReducer from "./auth/authModal";
 import storage from "redux-persist/lib/storage";
+import authenticatedReducer from "./auth/auththenticateReducer";
 
 const persistConfig = {
   key: "root",
   storage: storage,
   whitelist: ["auth"],
+  blacklist: ["authenticated"],
 };
 const rootReducer = combineReducers({
   auth: authReducer,
   authModal: authModalReducer,
+  authenticated: authenticatedReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
