@@ -15,9 +15,9 @@ const ProtectedRoutes = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!userAuthenticated) {
-      navigate("/");
+      navigate("/"), { replace: true };
     }
-  }, []);
+  }, [userAuthenticated, navigate]);
 
   return (
     <Box>
