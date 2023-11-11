@@ -134,6 +134,7 @@ export const signOut = (req, res) => {
     secure: true,
     sameSite: "None",
   });
+
   // res.clearCookie("accessToken");
   res.status(200).json({ message: "Logout Successfully" });
 };
