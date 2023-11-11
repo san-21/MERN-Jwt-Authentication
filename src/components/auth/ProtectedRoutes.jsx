@@ -16,7 +16,7 @@ const ProtectedRoutes = () => {
     if (!userAuthenticated) {
       navigate("/");
     }
-  }, [userAuthenticated, navigate]);
+  }, [userAuthenticated]);
 
   return (
     <Box>
