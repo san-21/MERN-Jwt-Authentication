@@ -14,10 +14,10 @@ const ProtectedRoutes = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!userAuthenticated && !user.token) {
+    if (!userAuthenticated) {
       navigate("/");
     }
-  }, [userAuthenticated]);
+  }, []);
 
   return (
     <Box>
