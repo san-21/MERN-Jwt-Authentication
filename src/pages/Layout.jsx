@@ -53,7 +53,7 @@ const Layout = () => {
     dispatch(setSignupOpen());
   };
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" height="auto">
       <Box
         sx={{
           display: "flex",
@@ -68,6 +68,7 @@ const Layout = () => {
       >
         <Box
           sx={{
+            display: { xs: "none", sm: "block" },
             flexGrow: 1,
           }}
         >
@@ -144,7 +145,13 @@ const Layout = () => {
           {userAuthenticated && user.fullname}
         </span>
       </Box>
-      <Outlet />
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Outlet />
+      </Box>
       <SignUp />
       <LogIn />
     </Container>
