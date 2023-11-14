@@ -57,7 +57,7 @@ const SignUp = () => {
           {
             fullname: user.fullname,
             email: user.email,
-            password: user.email,
+            password: user.password,
           }
           // {
           //   withCredentials: true,
