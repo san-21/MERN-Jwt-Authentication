@@ -12,6 +12,8 @@ import { logout } from "../redux-state/auth/authReducer";
 import { useNavigate, useLocation } from "react-router-dom";
 import { instance } from "../services/axiosClient";
 import { setUserUnAuthenticated } from "../redux-state/auth/auththenticateReducer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,6 +54,7 @@ const Layout = () => {
   const handleSignupOpen = () => {
     dispatch(setSignupOpen());
   };
+
   return (
     <Container maxWidth="xl" height="auto">
       <Box
@@ -152,6 +155,7 @@ const Layout = () => {
       >
         <Outlet />
       </Box>
+      <ToastContainer />
       <SignUp />
       <LogIn />
     </Container>

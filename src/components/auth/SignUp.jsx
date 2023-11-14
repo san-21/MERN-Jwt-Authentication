@@ -24,6 +24,27 @@ import { setLoginOpen, setSignupClose } from "../../redux-state/auth/authModal";
 import { useDispatch, useSelector } from "react-redux";
 
 import { instance } from "../../services/axiosClient";
+import { toast } from "react-toastify";
+
+const handleSuccessToastify = () => {
+  toast.success("Registered Suucessfullly", {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 400,
+  });
+};
+const handleErrorToastify = () => {
+  toast.error("Registration Failed", {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 400,
+  });
+};
+const handleWarningToastify = () => {
+  toast.warning("Fill Credential Correctly", {
+    position: toast.POSITION.TOP_LEFT,
+    delay: 1000,
+  });
+};
+
 const SignUp = () => {
   const dispatch = useDispatch();
   const open = useSelector((state) => state.authModal.signupOpen);
@@ -49,7 +70,8 @@ const SignUp = () => {
     if (
       user.fullname.length > 6 &&
       user.email.length !== 0 &&
-      user.password.length > 7
+      user.password.length > 7 &&
+      correctEmail(user.email)
     ) {
       try {
         const response = await instance.post(
@@ -80,9 +102,11 @@ const SignUp = () => {
           email: "",
           password: "",
         });
+        handleSuccessToastify();
         dispatch(setSignupClose());
         dispatch(setLoginOpen());
       } catch (error) {
+        handleErrorToastify();
         console.log(error);
         setIsLoading(false);
         setError(true);
