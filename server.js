@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import { allowedUrl } from "./config/corsSetting.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-
+import servicesRoutes from "./routes/servicesRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -26,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/services", servicesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Express Server Running on Port ${PORT}`);

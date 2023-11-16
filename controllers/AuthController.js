@@ -48,8 +48,7 @@ export const signUp = async (req, res) => {
 
 export const signIn = asynchandler(async (req, res) => {
   const { email, password, rememberMe } = req.body;
-  // req.body.password =
-  //   "$2b$10$CDKNLR6PjAIVagOJ6Y4gf.XgUDRsez8ESGz5tiyUPLX77BVhmKXBS";
+
   const validateJoi = Joi.object({
     email: Joi.string().required(),
     password: Joi.string().required(),
