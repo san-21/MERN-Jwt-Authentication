@@ -87,6 +87,11 @@ const ForgotPassword = () => {
   }, [errorMessage]);
 
   const handleForgotPasswordClose = () => {
+    if (loading) {
+      setLoading(false);
+      setErrorFlag(0);
+      setErrorMessage("Request cancel by user");
+    }
     dispatch(setForgotPasswordClose());
   };
   return (
