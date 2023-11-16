@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 dotenv.config();
 export const sendEmail = async (email, resetToken) => {
@@ -21,5 +22,6 @@ export const sendEmail = async (email, resetToken) => {
     console.log("Nodemailer sent mail successfully");
   } catch (error) {
     console.log("Nodemailer not sent mail");
+    return error;
   }
 };
