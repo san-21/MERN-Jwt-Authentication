@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail.js";
 import User from "../models/User.js";
