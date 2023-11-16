@@ -29,8 +29,8 @@ export const forgotPassword = async (req, res) => {
       {
         _id: user._id,
       },
-      process.env.RESET_TOKEN_SECRET_KEY,
-      { expiresIn: process.env.RESET_TOKEN_EXPIRATION }
+      `${process.env.RESET_TOKEN_SECRET_KEY}`,
+      { expiresIn: `${process.env.RESET_TOKEN_EXPIRATION} ` }
     );
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
@@ -63,7 +63,7 @@ export const resetPassword = async (req, res) => {
 
     jwt.verify(
       token,
-      process.env.RESET_TOKEN_SECRET_KEY,
+      `${process.env.RESET_TOKEN_SECRET_KEY}`,
       async (err, decoded) => {
         if (err) {
           return res.status(404).json({ message: "Invalid or Expired token" });

@@ -3,11 +3,11 @@ import nodemailer from "nodemailer";
 export const sendEmail = async (email, resetToken) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST_ADDRESS,
-      port: process.env.EMAIL_PORT || 465,
+      host: `${process.env.EMAIL_HOST_ADDRESS}`,
+      port: `${process.env.EMAIL_PORT}` || 465,
       auth: {
-        user: process.env.MAIL_SERVICE_USERNAME,
-        pass: process.env.MAIL_PASSWORD,
+        user: `${process.env.MAIL_SERVICE_USERNAME}`,
+        pass: `${process.env.MAIL_PASSWORD}`,
       },
     });
 
