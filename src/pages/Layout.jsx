@@ -14,6 +14,7 @@ import { instance } from "../services/axiosClient";
 import { setUserUnAuthenticated } from "../redux-state/auth/auththenticateReducer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgotPassword from "../components/auth/ForgotPassword";
 const Layout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -158,6 +159,7 @@ const Layout = () => {
       <ToastContainer />
       <SignUp />
       <LogIn />
+      <ForgotPassword />
     </Container>
   );
 };

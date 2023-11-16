@@ -5,6 +5,7 @@ const authModalSlice = createSlice({
   initialState: {
     signupOpen: false,
     loginOpen: false,
+    forgotPasswordOpen: false,
   },
   reducers: {
     setSignupClose: (state) => {
@@ -19,11 +20,23 @@ const authModalSlice = createSlice({
     setLoginOpen: (state) => {
       state.loginOpen = true;
     },
+    setForgotPasswordOpen: (state) => {
+      state.forgotPasswordOpen = true;
+    },
+    setForgotPasswordClose: (state) => {
+      state.forgotPasswordOpen = false;
+    },
   },
 });
 
-export const { setLoginClose, setLoginOpen, setSignupClose, setSignupOpen } =
-  authModalSlice.actions;
+export const {
+  setLoginClose,
+  setLoginOpen,
+  setSignupClose,
+  setSignupOpen,
+  setForgotPasswordClose,
+  setForgotPasswordOpen,
+} = authModalSlice.actions;
 
 const authModalReducer = authModalSlice.reducer;
 export default authModalReducer;

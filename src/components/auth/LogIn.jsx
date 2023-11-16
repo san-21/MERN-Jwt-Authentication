@@ -20,7 +20,11 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 // import LogInButton from "./Buttons/LogInButton";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setLoginClose, setSignupOpen } from "../../redux-state/auth/authModal";
+import {
+  setForgotPasswordOpen,
+  setLoginClose,
+  setSignupOpen,
+} from "../../redux-state/auth/authModal";
 import { setToken } from "../../redux-state/auth/authReducer";
 import { useNavigate } from "react-router-dom";
 
@@ -113,6 +117,11 @@ const LogIn = () => {
       }
     }
   };
+
+  const handleForgotPassword = () => {
+    dispatch(setLoginClose());
+    dispatch(setForgotPasswordOpen());
+  };
   return (
     <Dialog
       disableEscapeKeyDown
@@ -129,7 +138,7 @@ const LogIn = () => {
       <Box
         sx={{
           width: "500px",
-          height: "100vh",
+          height: "700px",
           backgroundColor: "white",
         }}
       >
@@ -260,6 +269,7 @@ const LogIn = () => {
               </Box>
             </FormControl>
             <Button
+              onClick={handleForgotPassword}
               disableFocusRipple
               disableElevation
               sx={{

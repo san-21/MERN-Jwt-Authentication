@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 
 import { useSelector } from "react-redux";
 import ProtectedRoutes from "./components/auth/ProtectedRoutes";
+import ResetPassword from "./components/auth/ResetPassword";
 
 const App = () => {
   const user = useSelector((state) => state.auth);
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />

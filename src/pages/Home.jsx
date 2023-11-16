@@ -133,9 +133,10 @@ const Home = () => {
               }}
             >
               The project is designed with scalability in mind, and future
-              enhancements may include features like multi-factor
-              authentication,Google OAuth2 Authorization, user roles, and
-              additional security measures as needed.
+              enhancements may include features like Activate account after
+              registration(Email Verification), multi-factor
+              authentication,Google OAuth2 Authorization, user roles,password
+              recovery using OTP and additional security measures as needed.
             </Typography>
           </li>
         </ul>

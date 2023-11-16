@@ -175,7 +175,7 @@ const SignUp = () => {
       <Box
         sx={{
           width: "500px",
-          height: "100vh",
+          height: "800px",
           backgroundColor: "white",
         }}
       >
@@ -266,7 +266,7 @@ const SignUp = () => {
                 variant="outlined"
                 name="email"
                 type="text"
-                sx={{ marginTop: 1 }}
+                sx={{ marginTop: 2 }}
               />
             </FormControl>
             <FormControl
