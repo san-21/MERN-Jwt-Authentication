@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail.js";
 import User from "../models/User.js";
@@ -18,9 +16,10 @@ export const forgotPassword = async (req, res) => {
     const expire = user.resetTokenExpiry;
     //   check if email expire time save in db and expre date have more time
 
-    if (expire && expire > Date.now()) {
+    if (expire !== undefined && expire > Date.now()) {
       return res.status(404).json({
-        message: "We Already Sent password reset link.check your mail",
+        message:
+          "Password reset link has already been sent. Please check your email",
       });
     }
 
@@ -36,10 +35,8 @@ export const forgotPassword = async (req, res) => {
     user.resetTokenExpiry = Date.now() + 3600000;
     await user.save();
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
-
-  //   SEND EMAIL
   try {
     await sendEmail(email, resetToken);
     return res.status(200).json({
@@ -47,11 +44,13 @@ export const forgotPassword = async (req, res) => {
         "Check Your Email We have sent Password reset link to your mail!",
     });
   } catch (error) {
-    user.resetToken = null;
-    user.resetTokenSecret = null;
+    user.resetToken = undefined;
+    user.resetTokenSecret = undefined;
     await user.save();
     return res.status(500).json({ message: error.message });
   }
+
+  //   SEND EMAIL
 };
 
 export const resetPassword = async (req, res) => {

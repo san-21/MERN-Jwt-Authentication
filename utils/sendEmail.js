@@ -1,7 +1,6 @@
-import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-dotenv.config();
-export const sendEmail = async (email, resetToken) => {
+
+export const sendEmail = async (email, resetToken, res) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST_ADDRESS,
@@ -18,10 +17,10 @@ export const sendEmail = async (email, resetToken) => {
       subject: "Passsword Reset Link",
       html: `<p>Click <a href="${process.env.PASSWORD_RESET_URL}/${resetToken}">here</a> to reset your password </p>`,
     };
+
     await transporter.sendMail(mailOptions);
-    console.log("Nodemailer sent mail successfully");
   } catch (error) {
     console.log("Nodemailer not sent mail");
-    return error;
+    throw new Error(error);
   }
 };
