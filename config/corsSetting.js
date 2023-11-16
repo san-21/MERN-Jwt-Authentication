@@ -1,7 +1,4 @@
-const urls = [
-  "https://mernjwt-ui.onrender.com",
-  "http://localhost:3000", // remove in production
-];
+const urls = ["https://mernjwt-ui.onrender.com", "http://localhost:3000"];
 
 export const allowedUrl = {
   origin: (origin, callback) => {
