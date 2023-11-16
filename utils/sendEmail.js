@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-
+dotenv.config();
 export const sendEmail = async (email, resetToken) => {
   try {
     const transporter = nodemailer.createTransport({

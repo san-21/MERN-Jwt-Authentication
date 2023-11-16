@@ -29,8 +29,8 @@ export const forgotPassword = async (req, res) => {
       {
         _id: user._id,
       },
-      `${process.env.RESET_TOKEN_SECRET_KEY}`,
-      { expiresIn: `${process.env.RESET_TOKEN_EXPIRATION} ` }
+      process.env.RESET_TOKEN_SECRET_KEY,
+      { expiresIn: process.env.RESET_TOKEN_EXPIRATION }
     );
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
@@ -42,16 +42,15 @@ export const forgotPassword = async (req, res) => {
   //   SEND EMAIL
   try {
     await sendEmail(email, resetToken);
-    res.status(200).json({
+    return res.status(200).json({
       message:
         "Check Your Email We have sent Password reset link to your mail!",
     });
-    console.log("email sent successfully");
   } catch (error) {
     user.resetToken = null;
     user.resetTokenSecret = null;
     await user.save();
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -63,7 +62,7 @@ export const resetPassword = async (req, res) => {
 
     jwt.verify(
       token,
-      `${process.env.RESET_TOKEN_SECRET_KEY}`,
+      process.env.RESET_TOKEN_SECRET_KEY,
       async (err, decoded) => {
         if (err) {
           return res.status(404).json({ message: "Invalid or Expired token" });
