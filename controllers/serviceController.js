@@ -7,32 +7,35 @@ import bcrypt from "bcrypt";
 
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
+  try {
+    var user = await User.findOne({ email: email }).exec();
 
-  const user = await User.findOne({ email: email }).exec();
+    if (!user) {
+      return res.status(404).json({ message: "Email not found or Registered" });
+    }
+    const expire = user.resetTokenExpiry;
+    //   check if email expire time save in db and expre date have more time
 
-  if (!user) {
-    return res.status(404).json({ message: "Email not found or Registered" });
+    if (expire && expire > Date.now()) {
+      return res.status(404).json({
+        message: "We Already Sent password reset link.check your mail",
+      });
+    }
+
+    // Generate token
+    var resetToken = jwt.sign(
+      {
+        _id: user._id,
+      },
+      process.env.RESET_TOKEN_SECRET_KEY,
+      { expiresIn: process.env.RESET_TOKEN_EXPIRATION }
+    );
+    user.resetToken = resetToken;
+    user.resetTokenExpiry = Date.now() + 3600000;
+    await user.save();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-  const expire = user.resetTokenExpiry;
-  //   check if email expire time save in db and expre date have more time
-
-  if (expire && expire > Date.now()) {
-    return res
-      .status(404)
-      .json({ message: "We Already Sent password reset link.check your mail" });
-  }
-
-  // Generate token
-  const resetToken = jwt.sign(
-    {
-      _id: user._id,
-    },
-    process.env.RESET_TOKEN_SECRET_KEY,
-    { expiresIn: process.env.RESET_TOKEN_EXPIRATION }
-  );
-  user.resetToken = resetToken;
-  user.resetTokenExpiry = Date.now() + 3600000;
-  await user.save();
 
   //   SEND EMAIL
   try {
@@ -46,7 +49,7 @@ export const forgotPassword = async (req, res) => {
     user.resetToken = null;
     user.resetTokenSecret = null;
     await user.save();
-    res.status(400).json({ message: "Email is not sent. Try Again" });
+    res.status(500).json({ message: error.message });
   }
 };
 
