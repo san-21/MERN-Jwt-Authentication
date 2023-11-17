@@ -29,7 +29,7 @@ export const forgotPassword = async (req, res) => {
         _id: user._id,
       },
       process.env.RESET_TOKEN_SECRET_KEY,
-      { expiresIn: process.env.RESET_TOKEN_EXPIRATION }
+      { expiresIn: "1h" }
     );
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
