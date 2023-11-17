@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-// import { sendEmail } from "../utils/sendEmail.js";
+import { sendEmail } from "../utils/sendEmail.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
+
 // functions
 
 export const forgotPassword = async (req, res) => {
@@ -28,8 +28,8 @@ export const forgotPassword = async (req, res) => {
       {
         _id: user._id,
       },
-      "90e4d1cb4749c95ed97fd31389671fd9efc27073bd0786cda6f446ab5fc8ca168691b086122ea55877473a28e58ed6c01b4b77a873e3f652f1a3fa0747325d61",
-      { expiresIn: "1h" }
+      process.env.RESET_TOKEN_SECRET_KEY,
+      { expiresIn: process.env.RESET_TOKEN_EXPIRATION }
     );
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
@@ -38,28 +38,7 @@ export const forgotPassword = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
   try {
-    // await sendEmail(email, resetToken);
-    // return res.status(200).json({
-    //   message:
-    //     "Check Your Email We have sent Password reset link to your mail!",
-    // });
-    const transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 25 || 465,
-      auth: {
-        user: "6b340a8e22a479",
-        pass: "28c4b669f2f7cb",
-      },
-    });
-
-    const mailOptions = {
-      from: "san software support <suppoprt@sansoftware.com>",
-      to: email,
-      subject: "Passsword Reset Link",
-      html: `<p>Click <a href="https://mernjwt-ui.onrender.com/reset-password/${resetToken}">here</a> to reset your password </p>`,
-    };
-
-    await transporter.sendMail(mailOptions);
+    await sendEmail(email, resetToken);
     return res.status(200).json({
       message:
         "Check Your Email We have sent Password reset link to your mail!",
