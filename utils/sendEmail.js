@@ -19,6 +19,10 @@ export const sendEmail = async (email, resetToken, res) => {
     };
 
     await transporter.sendMail(mailOptions);
+    return res.status(200).json({
+      message:
+        "Check Your Email We have sent Password reset link to your mail!",
+    });
   } catch (error) {
     console.log("Nodemailer not sent mail");
     throw new Error(error);
