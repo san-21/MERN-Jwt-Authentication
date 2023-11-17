@@ -28,7 +28,7 @@ export const forgotPassword = async (req, res) => {
       {
         _id: user._id,
       },
-      process.env.RESET_TOKEN_SECRET_KEY,
+      "90e4d1cb4749c95ed97fd31389671fd9efc27073bd0786cda6f446ab5fc8ca168691b086122ea55877473a28e58ed6c01b4b77a873e3f652f1a3fa0747325d61",
       { expiresIn: "1h" }
     );
     user.resetToken = resetToken;
@@ -44,11 +44,11 @@ export const forgotPassword = async (req, res) => {
     //     "Check Your Email We have sent Password reset link to your mail!",
     // });
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST_ADDRESS,
-      port: process.env.EMAIL_PORT || 465,
+      host: "sandbox.smtp.mailtrap.io",
+      port: 25 || 465,
       auth: {
-        user: process.env.MAIL_SERVICE_USERNAME,
-        pass: process.env.MAIL_PASSWORD,
+        user: "6b340a8e22a479",
+        pass: "28c4b669f2f7cb",
       },
     });
 
@@ -56,7 +56,7 @@ export const forgotPassword = async (req, res) => {
       from: "san software support <suppoprt@sansoftware.com>",
       to: email,
       subject: "Passsword Reset Link",
-      html: `<p>Click <a href="${process.env.PASSWORD_RESET_URL}/${resetToken}">here</a> to reset your password </p>`,
+      html: `<p>Click <a href="https://mernjwt-ui.onrender.com/reset-password/${resetToken}">here</a> to reset your password </p>`,
     };
 
     await transporter.sendMail(mailOptions);
