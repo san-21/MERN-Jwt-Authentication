@@ -85,6 +85,11 @@ const ForgotPassword = () => {
       });
     }
   }, [errorMessage]);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 6000);
+  }, [isSuccess]);
 
   const handleForgotPasswordClose = () => {
     if (loading) {
