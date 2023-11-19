@@ -68,7 +68,7 @@ const Layout = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "space-around",
           backgroundColor: `${theme.palette.background[500]}`,
           width: "100%",
           p: { xs: "auto", sm: 1, md: 2, lg: 2 },
@@ -147,6 +147,7 @@ const Layout = () => {
         <Typography
           sx={{
             marginLeft: "10px",
+            marginRight: "10px",
             fontSize: "14px !important",
             fontWeight: 700,
             color: `${theme.palette.text[400]}`,

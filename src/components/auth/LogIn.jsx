@@ -294,7 +294,7 @@ const LogIn = () => {
             >
               Forgot password?
             </Button>
-            <Box display="flex" justifyContent="flex-start" alignItems="center">
+            <Box display="flex" justifyContent="start" alignItems="center">
               <Checkbox
                 checked={rememberMe}
                 sx={{
