@@ -158,6 +158,13 @@ const SignUp = () => {
 
   const handleSignupClose = () => {
     dispatch(setSignupClose());
+    if (isLoading) {
+      toast.info("Signup closed by user", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+      });
+      setIsLoading(false);
+    }
   };
   return (
     <Dialog
@@ -174,7 +181,7 @@ const SignUp = () => {
     >
       <Box
         sx={{
-          width: "500px",
+          // width: "500px",
           height: "800px",
           backgroundColor: "white",
         }}

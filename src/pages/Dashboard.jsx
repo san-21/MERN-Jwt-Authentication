@@ -28,6 +28,7 @@ const Dashboard = () => {
         height: "90vh",
         backgroundColor: `${theme.palette.background[200]}`,
         textAlign: "center",
+        p: { xs: "auto", sm: 1, md: 2 },
       }}
     >
       {data ? <Typography variant="h4">{data}</Typography> : <LinearProgress />}

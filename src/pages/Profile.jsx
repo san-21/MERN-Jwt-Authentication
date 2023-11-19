@@ -31,6 +31,7 @@ const Profile = () => {
         height: "90vh",
         backgroundColor: `${theme.palette.background[200]}`,
         textAlign: "center",
+        p: { xs: "auto", sm: 1, md: 2 },
       }}
     >
       <Typography variant="h4">Your Profile </Typography>

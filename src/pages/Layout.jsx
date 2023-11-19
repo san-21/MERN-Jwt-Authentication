@@ -1,4 +1,10 @@
-import { Box, Button, CircularProgress, Container } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@emotion/react";
@@ -64,15 +70,15 @@ const Layout = () => {
           alignItems: "center",
           justifyContent: "space-between",
           backgroundColor: `${theme.palette.background[500]}`,
-          p: 2,
-          pl: 4,
-          pr: 4,
-          mb: 4,
+          width: "100%",
+          p: { xs: "auto", sm: 1, md: 2, lg: 2 },
+          mb: 2,
+          height: "50px",
         }}
       >
         <Box
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", sm: "flex" },
             flexGrow: 1,
           }}
         >
@@ -138,28 +144,24 @@ const Layout = () => {
           )}
         </Button>
 
-        <span
-          style={{
-            margin: "0 10px",
+        <Typography
+          sx={{
+            marginLeft: "10px",
             fontSize: "14px !important",
             fontWeight: 700,
             color: `${theme.palette.text[400]}`,
           }}
         >
           {userAuthenticated && user.fullname}
-        </span>
+        </Typography>
       </Box>
-      <Box
-        sx={{
-          width: "100%",
-        }}
-      >
+      <Box sx={{ width: "100%" }}>
         <Outlet />
+        <ToastContainer />
+        <SignUp />
+        <LogIn />
+        <ForgotPassword />
       </Box>
-      <ToastContainer />
-      <SignUp />
-      <LogIn />
-      <ForgotPassword />
     </Container>
   );
 };

@@ -31,6 +31,7 @@ import { useNavigate } from "react-router-dom";
 import { correctEmail } from "../../validate/AuthValidation";
 import { instance } from "../../services/axiosClient";
 import { setUserAuthenticated } from "../../redux-state/auth/auththenticateReducer";
+import { toast } from "react-toastify";
 const LogIn = () => {
   const open = useSelector((state) => state.authModal.loginOpen);
 
@@ -44,7 +45,7 @@ const LogIn = () => {
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const canLogin = [email, password].every(Boolean);
+  var canLogin = [email, password].every(Boolean);
   const [rememberMe, setRememberMe] = useState(false);
   console.log(email, password);
   const handleHidePassword = () => {
@@ -58,6 +59,13 @@ const LogIn = () => {
   };
   const handleLoginClose = () => {
     dispatch(setLoginClose());
+    if (isLoading) {
+      toast.info("Signin closed by user", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+      });
+      setIsLoading(false);
+    }
   };
 
   const handleSignin = async (e) => {
@@ -137,7 +145,7 @@ const LogIn = () => {
     >
       <Box
         sx={{
-          width: "500px",
+          // width: "100vw",
           height: "700px",
           backgroundColor: "white",
         }}

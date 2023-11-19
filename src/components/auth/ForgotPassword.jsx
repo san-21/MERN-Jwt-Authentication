@@ -114,7 +114,7 @@ const ForgotPassword = () => {
     >
       <Box
         sx={{
-          width: "500px",
+          // width: "500px",
           height: "400px",
           backgroundColor: "white",
         }}
@@ -237,7 +237,12 @@ const ForgotPassword = () => {
               }}
             >
               {loading ? (
-                <CircularProgress color="inherit" size={30} />
+                <CircularProgress
+                  sx={{
+                    color: `${theme.palette.background[500]}`,
+                  }}
+                  size={30}
+                />
               ) : (
                 " Send Email"
               )}
