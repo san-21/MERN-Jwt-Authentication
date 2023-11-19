@@ -88,7 +88,7 @@ const ForgotPassword = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsSuccess(false);
-    }, 6000);
+    }, 10000);
   }, [isSuccess]);
 
   const handleForgotPasswordClose = () => {
@@ -189,13 +189,13 @@ const ForgotPassword = () => {
               <Box
                 sx={{
                   width: "95%",
-                  height: "40px",
+                  height: { xs: "65px", sm: "50px", md: "45px", lg: "40px" },
                   border: `1px solid ${theme.palette.green[600]}`,
                   borderRadius: "6px",
 
                   color: `${theme.palette.green[600]}`,
                   textAlign: "center",
-                  p: 1,
+                  p: { xs: 1.5, sm: 1 },
                 }}
               >
                 <Typography>{successMessage}</Typography>
@@ -211,7 +211,7 @@ const ForgotPassword = () => {
 
                   color: `${theme.palette.red[600]}`,
                   textAlign: "center",
-                  p: 1,
+                  p: 1.5,
                 }}
               >
                 <Typography>{errorMessage}</Typography>
