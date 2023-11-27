@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-
+// import { sendEmail } from "../utils/mailgunSMPT.js";
+// import { sendEmail } from "../utils/sendGridMail.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-
-import { sendEmail } from "../utils/sendGridMail.js";
+import { mailgunApiEmail } from "../utils/mailgunApi.js";
 
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -26,10 +26,15 @@ export const forgotPassword = async (req, res) => {
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
     await user.save();
-    await sendEmail(email, resetToken);
+
+    // you can use and call any email provider here
+
+    // send emai using Mailgun Api
+    await mailgunApiEmail(email);
+
     return res.status(200).json({
       message:
-        "Check Your Email After 24 hours We have sent Password reset link to your mail!",
+        "Email Successfully sent Using Gunmail email provider! But it is test mode you can not get email now. but it is tested",
     });
   } catch (error) {
     return res.status(500).json({ message: "Email Not Sent", error: error });
