@@ -189,7 +189,7 @@ const ForgotPassword = () => {
               <Box
                 sx={{
                   width: "95%",
-                  height: { xs: "65px", sm: "50px", md: "45px", lg: "40px" },
+                  height: { xs: "65px", sm: "50px", md: "45px", lg: "45px" },
                   border: `1px solid ${theme.palette.green[600]}`,
                   borderRadius: "6px",
 
